@@ -1,0 +1,430 @@
+
+/* CONFIGURACION GENERAL */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(
+        135deg,
+        #fff5f7,
+        #f8e5ed,
+        #fff9f5
+    );
+
+    font-family: Georgia, "Times New Roman", serif;
+    color: #704653;
+    overflow-x: hidden;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+.contenedor {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 18px;
+    text-align: center;
+}
+
+/* TITULOS */
+
+.etiqueta {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #bd8296;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: clamp(27px, 5vw, 39px);
+    font-weight: normal;
+    margin-bottom: 12px;
+}
+
+.instruccion {
+    font-size: 15px;
+    color: #9a7480;
+    margin-bottom: 35px;
+    line-height: 1.6;
+}
+
+/* ESCENARIO DEL SOBRE */
+
+.escenario {
+    width: min(320px, calc(100vw - 36px));
+    height: 230px;
+    position: relative;
+    perspective: 1000px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.sobre {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 190px;
+    transform-style: preserve-3d;
+}
+
+/* PARTE TRASERA */
+
+.parte-trasera {
+    position: absolute;
+    inset: 0;
+    background: #dca5b6;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+/* CARTA */
+
+.carta {
+    position: absolute;
+    width: calc(100% - 30px);
+    height: 260px;
+    bottom: 5px;
+    left: 15px;
+
+    background: #fffdf9;
+    border: 1px solid #f1dce2;
+    border-radius: 4px;
+
+    padding: 22px 20px;
+    text-align: left;
+    overflow-y: auto;
+
+    z-index: 2;
+
+    box-shadow: 0 4px 15px #86546618;
+
+    transform: translateY(0);
+
+    transition:
+        transform 1s ease,
+        box-shadow 1s ease;
+}
+
+/* CONTENIDO DE LA CARTA */
+
+.contenido-carta {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    transition-delay: 0s;
+}
+
+.saludo {
+    font-size: 13px;
+    color: #bc8195;
+    margin-bottom: 12px;
+}
+
+.contenido-carta h2 {
+    font-size: 22px;
+    font-weight: normal;
+    margin-bottom: 18px;
+    color: #9b586e;
+}
+
+.contenido-carta p {
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 13px;
+}
+
+.contenido-carta .despedida {
+    margin-top: 22px;
+    color: #a46b7e;
+    font-style: italic;
+}
+
+.despedida span {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* SOLAPA DEL SOBRE */
+
+.solapa {
+    position: absolute;
+    inset: 0;
+
+    background: #c9879e;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 58%
+    );
+
+    transform-origin: top center;
+    transform: rotateX(0deg);
+
+    transition:
+        transform 0.7s ease,
+        z-index 0s 0.35s;
+
+    backface-visibility: visible;
+    z-index: 5;
+}
+
+/* PLIEGUES DEL SOBRE */
+
+.frente-izquierdo {
+    position: absolute;
+    inset: 0;
+
+    background: #e8b8c6;
+
+    clip-path: polygon(
+        0 0,
+        52% 55%,
+        0 100%
+    );
+
+    z-index: 4;
+}
+
+.frente-derecho {
+    position: absolute;
+    inset: 0;
+
+    background: #dfabbc;
+
+    clip-path: polygon(
+        100% 0,
+        48% 55%,
+        100% 100%
+    );
+
+    z-index: 4;
+}
+
+.frente-inferior {
+    position: absolute;
+    inset: 0;
+
+    background: #f0cbd5;
+
+    clip-path: polygon(
+        0 100%,
+        50% 48%,
+        100% 100%
+    );
+
+    z-index: 4;
+}
+
+/* SELLO */
+
+.sello {
+    position: absolute;
+
+    width: 39px;
+    height: 39px;
+
+    left: calc(50% - 19.5px);
+    top: 108px;
+
+    background: #fff3f5;
+    border: 1px solid #d9a0b1;
+    border-radius: 50%;
+
+    color: #bc718b;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 19px;
+
+    z-index: 6;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* ANIMACION AL ABRIR */
+
+.sobre.abierto .solapa {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.sobre.abierto .carta {
+    transform: translateY(-165px);
+    z-index: 6;
+
+    box-shadow: 0 15px 35px #86546628;
+
+    transition-delay: 0.25s;
+}
+
+.sobre.abierto .contenido-carta {
+    opacity: 1;
+    transition-delay: 1s;
+}
+
+.sobre.abierto .sello {
+    opacity: 0;
+    transform: scale(0.5);
+    pointer-events: none;
+}
+
+/* BOTONES */
+
+.controles {
+    min-height: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-principal {
+    border: 1px solid #d6a0b1;
+    border-radius: 30px;
+
+    padding: 14px 27px;
+
+    background: #fff9fa;
+    color: #995d72;
+
+    font-family: Georgia, serif;
+    font-size: 15px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 16px #b47d8b20;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.boton-principal:hover {
+    background: #f8e3ea;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px #b47d8b30;
+}
+
+.boton-principal:focus-visible {
+    outline: 2px solid #995d72;
+    outline-offset: 4px;
+}
+
+.oculto {
+    display: none;
+}
+
+/* TEXTO INFERIOR */
+
+.pie {
+    margin-top: 35px;
+    font-size: 12px;
+    color: #b18a96;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* CORAZONES FLOTANTES */
+
+.corazones {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.corazon-flotante {
+    position: absolute;
+    bottom: -30px;
+
+    color: #d58fa6;
+    opacity: 0;
+
+    animation: flotar 3s ease-out forwards;
+}
+
+@keyframes flotar {
+
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.6);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-75vh) rotate(25deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* ADAPTACION PARA CELULARES */
+
+@media (max-width: 480px) {
+
+    .contenedor {
+        padding: 30px 18px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .instruccion {
+        max-width: 300px;
+        line-height: 1.6;
+    }
+
+    .escenario {
+        margin-top: 12px;
+        margin-bottom: 25px;
+    }
+
+    .carta {
+        padding: 18px 15px;
+    }
+
+    .contenido-carta h2 {
+        font-size: 20px;
+    }
+
+    .contenido-carta p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .boton-principal {
+        min-height: 48px;
+        padding: 13px 24px;
+    }
+}
+
+/* RESPETO A PREFERENCIAS DE MOVIMIENTO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
