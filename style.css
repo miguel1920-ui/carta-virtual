@@ -60,6 +60,7 @@ h1 {
     display: flex;
     justify-content: center;
     perspective: 1000px;
+    margin-top: 45px;
 }
 
 .sobre {

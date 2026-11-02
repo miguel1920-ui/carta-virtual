@@ -11,25 +11,23 @@ const instruccion = document.getElementById("instruccion");
 
 const contenedorCorazones = document.getElementById("corazones");
 
+const musicaCarta = document.getElementById("musicaCarta");
+
 
 // FUNCION PARA ABRIR LA CARTA
 
 function abrirCarta() {
-
-    // Agregar la clase que activa la animacion
     sobre.classList.add("abierto");
-
-    // Ocultar el boton de abrir
     botonAbrir.classList.add("oculto");
-
-    // Mostrar el boton de cerrar
     botonCerrar.classList.remove("oculto");
 
-    // Cambiar el texto de instrucciones
     instruccion.textContent =
         "Hay cosas que merecen decirse con el corazón. ♡";
 
-    // Crear corazones flotantes
+    musicaCarta.play().catch(error => {
+        console.log("No se pudo reproducir la música:", error);
+    });
+
     crearCorazones();
 }
 
@@ -37,19 +35,15 @@ function abrirCarta() {
 // FUNCION PARA CERRAR LA CARTA
 
 function cerrarCarta() {
-
-    // Quitar la clase de apertura
     sobre.classList.remove("abierto");
-
-    // Ocultar el boton de cerrar
     botonCerrar.classList.add("oculto");
-
-    // Mostrar nuevamente el boton de abrir
     botonAbrir.classList.remove("oculto");
 
-    // Restaurar el texto inicial
     instruccion.textContent =
         "Hay algo que me gustaría que leyeras.";
+
+    musicaCarta.pause();
+    musicaCarta.currentTime = 0;
 }
 
 
